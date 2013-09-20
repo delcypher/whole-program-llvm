@@ -550,6 +550,22 @@ class ClangBuilder(BuilderBase):
         outFile = argFilter.getOutputFilename()
         attachBitcodePathToObject(bcname, outFile)
 
+# Legacy LLVM bitcode compiler llvm-gcc (last release llvm2.9)
+# http://llvm.org/releases/2.9/docs/CommandGuide/html/llvmgcc.html
+class LLVMGCCBuilder(ClangBuilder):
+    def __init__(self, cmd, isCxx, prefixPath=None):
+        super(LLVMGCCBuilder, self).__init__(cmd, isCxx, prefixPath)
+
+    def getCompiler(self):
+        # Deliberately don't use prefixPath because
+        # llvm-gcc is probably installed from binary
+        # rather than source and so should be in
+        # our path
+        if self.isCxx:
+            return ['llvm-g++']
+        else:
+            return ['llvm-gcc']
+
 #iam: this should join the dodo soon, yes?
 class DragoneggBuilder(BuilderBase):
     def __init__(self, cmd, isCxx, prefixPath=None):
@@ -598,6 +614,8 @@ def getBuilder(cmd, isCxx):
         return ClangBuilder(cmd, isCxx, pathPrefix)
     elif cstring == 'dragonegg':
         return DragoneggBuilder(cmd, isCxx, pathPrefix)
+    elif cstring == 'llvm-gcc':
+        return LLVMGCCBuilder(cmd, isCxx, pathPrefix)
     elif cstring == None:
         errorMsg = ' No compiler set. Please set environment variable ' + compilerEnv
         _logger.critical(errorMsg)

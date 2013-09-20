@@ -34,7 +34,8 @@ Usage
 There are three environment variables that must be set to use this
 wrapper script:
 
- * `LLVM_COMPILER` should be set to 'dragonegg' or 'clang'.
+ * `LLVM_COMPILER` should be set to 'dragonegg' or 'clang' or 'llvm-gcc'
+   (legacy compiler last release llvm2.9)
  * `LLVM_GCC_PREFIX` should be set to the prefix for the version of gcc that should
    be used with dragonegg.  This can be empty if there is no prefix.  This variable is
    not used if `$LLVM_COMPILER == clang`.
@@ -53,6 +54,11 @@ In addition to the above environment variables the following can be optionally u
    and you want to easily switch compilers without tinkering with your PATH
    variable.
    Example `LLVM_COMPILER_PATH=/home/user/llvm_and_clang/Debug+Asserts/bin`.
+
+   Note that for 'llvm-gcc' compiler this environment variable is ignored when
+   compiling but not when using the extract-bc tool. The reason for doing this
+   is because on my system LLVM2.9 is compiled from source but llvm-gcc is
+   from a pre-built binary.
 
 *  `WLLVM_CONFIGURE_ONLY` can be set to anything, when set `wllvm` and `wllvm++`
    will not carry out the second phase that involves the production of bitcode.
