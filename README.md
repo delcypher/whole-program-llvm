@@ -25,8 +25,11 @@ static libraries in builds.  This approach has the distinct advantage
 of generating working binaries, in case some part of a build process
 actually requires that.
 
-Currently, this package only works using clang or the dragonegg plugin
-with gcc 4.5 (with the required patch for dragonegg).
+Currently, this package only works using the following compilers:
+
+* clang
+* gcc with dragonegg plugin
+* llvm-gcc (this is deprecated)
 
 Usage
 =====
