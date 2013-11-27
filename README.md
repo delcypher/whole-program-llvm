@@ -40,7 +40,7 @@ wrapper script:
    be used with dragonegg.  This can be empty if there is no prefix.  This variable is
    not used if `$LLVM_COMPILER == clang`.
  * `LLVM_DRAGONEGG_PLUGIN` should be the full path to the dragonegg plugin.  This
-   variable is not used if `$LLVM_COMPILER == clang`.
+   variable is not used if `$LLVM_COMPILER == clang` or `$LLVM_COMPILER == llvm-gcc`
 
 Once the environment is set up, just use wllvm and wllvm++ as your C
 and C++ compilers, respectively.
@@ -57,8 +57,8 @@ In addition to the above environment variables the following can be optionally u
 
    Note that for 'llvm-gcc' compiler this environment variable is ignored when
    compiling but not when using the extract-bc tool. The reason for doing this
-   is because on my system LLVM2.9 is compiled from source but llvm-gcc is
-   from a pre-built binary.
+   is because llvm-gcc is in my PATH (installed) but the llvm tools are not
+   (they aren't installed, but are built from source).
 
 *  `WLLVM_CONFIGURE_ONLY` can be set to anything, when set `wllvm` and `wllvm++`
    will not carry out the second phase that involves the production of bitcode.
